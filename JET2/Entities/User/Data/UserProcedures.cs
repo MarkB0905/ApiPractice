@@ -3,6 +3,7 @@ using JET2.Connection.IConnection;
 using JET2.Entities.User.IUser;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,12 @@ namespace JET2.Entities.User.Data
             new DbParam("@PhoneNumber", phoneNumber),
             new DbParam("@Email", email)
         }));
+        }
+
+
+        public async Task<DataSet> UsersGet()
+        {
+            return await _connection.RunProcedure("sp_Users_UsersGet");
         }
     }
 }

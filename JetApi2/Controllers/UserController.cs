@@ -24,7 +24,6 @@ namespace JetApi2.Controllers
             try
             {
                 _userRepository.UserInsert(user.FirstName, user.LastName, user.PhoneNumber, user.Email);
-                //new UserRepository().UserInsert(user.FirstName, user.LastName, user.PhoneNumber, user.Email);
                 return Ok();
             }
             catch (Exception ex) 
@@ -33,6 +32,22 @@ namespace JetApi2.Controllers
             }
 
 
+        }
+
+        [HttpGet("UsersGet")]
+        public async Task<IActionResult> UsersGet()
+        {
+            try
+            {
+                List<User> users = new List<User>();
+                users = await _userRepository.UsersGet();
+                return Ok(users);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured in the endpoint");
+            }
         }
     }
 }

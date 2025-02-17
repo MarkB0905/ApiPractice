@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace JET2.Connection.IConnection
 {
-    
-        public interface IConnection
-        {
-            Task<DataSet> RunProcedure(string procedure, List<DbParam> dBParamList);
-        }
-    
+
+    public interface IConnection
+    {
+        Task<DataSet> RunProcedure(string procedure, List<DbParam> dBParamList);
+        Task<DataSet> RunProcedure(string procedure);
+
+
+    }
+
 }
 

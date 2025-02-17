@@ -50,5 +50,39 @@ namespace JET2.Connection
                 throw new Exception("An Error Occurred While Calling The Database", ex);
             }
         }
+
+
+
+        public async Task<DataSet> RunProcedure(string Name)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    DataSet ds = new DataSet();
+                    using (SqlCommand cmd = new SqlCommand(Name, connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        //foreach (DbParam i in paramas)
+                        //{
+                        //    cmd.Parameters.AddWithValue(i.Name, i.Value);
+                        //}
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            await Task.Run(() => adapter.Fill(ds)); // Simulating async behavior
+                        }
+                    }
+
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An Error Occurred While Calling The Database", ex);
+            }
+        }
     }
 }
